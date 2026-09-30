@@ -12,7 +12,8 @@ Manages mock interview lifecycle:
 import json
 from datetime import datetime, timezone
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify, abort, flash
-from flask_login import login_required, current_user
+from flask_login import current_user
+from app.security import login_required_unless_static
 from app.extensions import db
 from app.models import InterviewSession, Answer
 from app.services import ai_engine, question_bank
@@ -21,7 +22,7 @@ interview_bp = Blueprint("interview", __name__)
 
 
 @interview_bp.route("/start", methods=["GET", "POST"])
-@login_required
+@login_required_unless_static
 def start():
     """Configure and start a new interview session."""
     if request.method == "POST":
@@ -75,8 +76,25 @@ def start():
     return render_template("interview/start.html")
 
 
+@interview_bp.route("/play")
+@login_required_unless_static
+def play():
+    """Client-side interview player used by the static Vercel export."""
+    return render_template(
+        "interview/play.html",
+        sections_config=question_bank.get_sections_config(),
+    )
+
+
+@interview_bp.route("/report")
+@login_required_unless_static
+def static_report():
+    """Client-side results page used by the static Vercel export."""
+    return render_template("interview/results_static.html")
+
+
 @interview_bp.route("/<int:session_id>")
-@login_required
+@login_required_unless_static
 def session(session_id):
     """Render the interview session page with current question or transition modal."""
     sess = InterviewSession.query.get_or_404(session_id)
@@ -156,7 +174,7 @@ def session(session_id):
 
 
 @interview_bp.route("/<int:session_id>/start_main", methods=["GET", "POST"])
-@login_required
+@login_required_unless_static
 def start_main(session_id):
     """Transition from pre-assessment to the 60-question main practice test across 6 levels."""
     sess = InterviewSession.query.get_or_404(session_id)
@@ -204,7 +222,7 @@ def start_main(session_id):
 
 
 @interview_bp.route("/<int:session_id>/answer", methods=["POST"])
-@login_required
+@login_required_unless_static
 def submit_answer(session_id):
     """Submit an answer for the current question. Returns JSON for AJAX."""
     sess = InterviewSession.query.get_or_404(session_id)
@@ -338,7 +356,7 @@ def submit_answer(session_id):
 
 
 @interview_bp.route("/<int:session_id>/results")
-@login_required
+@login_required_unless_static
 def results(session_id):
     """Display final interview results with 6-level mark and percentage breakdown."""
     sess = InterviewSession.query.get_or_404(session_id)
@@ -449,9 +467,11 @@ def results(session_id):
 
 
 @interview_bp.route("/history")
-@login_required
+@login_required_unless_static
 def history():
     """List all interview sessions for current user."""
+    if not current_user.is_authenticated:
+        return render_template("interview/history.html", sessions=[])
     sessions = (
         InterviewSession.query
         .filter_by(user_id=current_user.id)

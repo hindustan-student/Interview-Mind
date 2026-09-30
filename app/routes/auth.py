@@ -7,7 +7,8 @@ Uses Flask-Login for session management and Werkzeug for password hashing.
 
 from datetime import datetime, timezone
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, current_user
+from app.security import login_required_unless_static
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.extensions import db, bcrypt
 from app.models import User
@@ -101,7 +102,7 @@ def login():
 
 
 @auth_bp.route("/logout")
-@login_required
+@login_required_unless_static
 def logout():
     """User logout."""
     logout_user()

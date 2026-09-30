@@ -8,6 +8,7 @@
             <h1>Your Resume Reports</h1>
             <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">+ Upload Resume</a>
         </div>
+            <div id="resume-history-root">
         {% if reports %}
         <table class="table">
             <thead>
@@ -33,6 +34,7 @@
             <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">Upload Your Resume</a>
         </div>
         {% endif %}
+            </div>
     </div>
 </section>
 {% endblock %}

@@ -6,7 +6,8 @@ Lightweight REST-ish API used by the front-end during interview sessions.
 
 import json
 from flask import Blueprint, request, jsonify, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
+from app.security import login_required_unless_static
 from app.extensions import db
 from app.models import InterviewSession, Answer
 from app.services import ai_engine, question_bank
@@ -30,7 +31,7 @@ def sample_questions():
 
 
 @api_bp.route("/interview/<int:session_id>/answer", methods=["POST"])
-@login_required
+@login_required_unless_static
 def submit_answer_api(session_id):
     """AJAX endpoint to submit an answer and get instant feedback."""
     sess = InterviewSession.query.get_or_404(session_id)

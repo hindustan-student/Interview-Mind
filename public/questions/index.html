@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InterviewMind - AI-powered interview preparation system with mock interviews, resume ATS analyzer, and performance analytics.">
+    <meta name="interviewmind-static" content="1">
+    <title>Question Bank | InterviewMind</title>
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+</head>
+<body data-static="true">
+    <!-- Neon particle background canvas -->
+    <canvas id="particle-canvas"
+            data-particle-canvas
+            data-density="0.00012"
+            data-max-particles="140"
+            data-min-particles="40"
+            data-speed="0.45"
+            data-link-distance="130"
+            data-mouse-radius="160"></canvas>
+
+    <div class="app-shell">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="brand">
+                    <span class="brand-mark">IM</span>
+                    <span>InterviewMind</span>
+                </a>
+
+                <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('is-open')">
+                    <span>&#9776;</span>
+                </button>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/features">Features</a></li>
+                    <li><a href="/about">About</a></li>
+                    
+                        <li><a href="/auth/login">Login</a></li>
+                        <li><a href="/auth/register" class="btn btn-primary" style="padding:6px 14px;font-size:0.88rem;">Get Started</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+
+        
+        <div class="container" style="padding-top:12px;">
+            <div class="alert alert-info" style="margin-bottom:0;">
+                Static academic demo on Vercel — accounts, interviews, and ATS reports stay in this browser (localStorage). Flask + SQLite still run locally with <code>python run.py</code>.
+            </div>
+        </div>
+        
+
+        <!-- Flash messages -->
+        
+            
+        
+        <div class="container flash-container" id="client-flash"></div>
+
+        <!-- Main content -->
+        <main>
+            
+<section class="section">
+    <div class="container">
+        <h1 class="mb-1">Question Bank</h1>
+        <p class="text-secondary mb-3">Browse 50 curated interview questions across 4 categories.</p>
+
+        <!-- Filter bar -->
+        <form method="GET" class="card mb-3">
+            <div class="grid grid-3" style="gap:16px;">
+                <div class="form-group" style="margin:0;">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" class="form-control" onchange="this.form.submit()">
+                        <option value="mixed" selected>All Categories</option>
+                        
+                        <option value="technical" >Technical (40)</option>
+                        
+                        <option value="logical_reasoning" >Logical Reasoning (20)</option>
+                        
+                        <option value="behavioral" >Behavioral (10)</option>
+                        
+                        <option value="system_design" >System Design (10)</option>
+                        
+                    </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label for="difficulty">Difficulty</label>
+                    <select id="difficulty" name="difficulty" class="form-control" onchange="this.form.submit()">
+                        <option value="mixed" selected>All Levels</option>
+                        <option value="easy" >Easy</option>
+                        <option value="medium" >Medium</option>
+                        <option value="hard" >Hard</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin:0;display:flex;align-items:flex-end;">
+                    <a href="/interview/start" class="btn btn-primary w-full">Start Mock Interview →</a>
+                </div>
+            </div>
+        </form>
+
+        <!-- Questions list -->
+        <div class="grid grid-2">
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between continuous integration (CI) and continuous deployment (CD)?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Explain the concept of database indexing. What are the trade-offs of having too many indexes on a database table?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">indexing</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">b-tree</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">select</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">write overhead</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">storage</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">query optimizer</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">insert</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">update</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">If statement: &#39;Every developer who knows C++ also knows C&#39;. Developer Maria does NOT know C. What can be deduced about Maria?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What problem does the Raft consensus algorithm solve?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the time complexity of building a heap from an arbitrary array of N elements?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is an index scan vs an index seek in database query optimization?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Walk me through what happens under the hood when a user types a URL (e.g. https://www.example.com) into a web browser and hits enter.</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">dns</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">tcp</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">tls</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">handshake</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">http</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">get</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">load balancer</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">dom</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">render</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">paint</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between TCP congestion control and flow control?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">When refactoring legacy code without automated tests, what is the recommended first step?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between a clustered index and a non-clustered index?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is an inverted index commonly used for in search engines like Elasticsearch?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Explain the four ACID properties of relational databases and why each is crucial for transactional integrity.</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">acid</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">atomicity</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">consistency</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">isolation</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">durability</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">transaction</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">rollback</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">wal</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">If A is taller than B, C is shorter than A, and B is taller than C, what is the correct ordering from tallest to shortest?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the main difference between an optimistic and a pessimistic database lock?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between horizontal and vertical scaling?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the purpose of the &#39;EXPLAIN&#39; statement in SQL?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the purpose of an API Gateway in modern microservice architectures?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">A binary search algorithm on a sorted array of 1,024 elements requires at most how many comparisons to find an element or confirm its absence?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In RESTful architecture, which HTTP method is expected to be idempotent?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between synchronous multithreading and asynchronous non-blocking event loops (like Node.js or Python asyncio)?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">threads</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">asynchronous</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">event loop</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">non-blocking</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">epoll</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">context switch</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">concurrency</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">io</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">A cache has a hit ratio of 90%. Accessing the cache takes 1 ms, and accessing the database on a miss takes 20 ms. What is the average access time?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is a deadlock in concurrent programming?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the primary difference between a B-Tree and a Binary Search Tree (BST)?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">A project requires 120 person-days of effort. With a team of 4 engineers working at uniform productivity, how many weeks will it take (assuming a 5-day workweek)?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Explain how a Hash Map handles collisions. Compare chaining vs open addressing with linear/quadratic probing.</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">hash map</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">collision</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">chaining</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">open addressing</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">linear probing</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">load factor</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">linked list</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">cache locality</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is cross-site scripting (XSS) and how is it primarily prevented?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">How would you design a caching strategy for a high-traffic web application? Discuss Cache-Aside, Write-Through, and eviction policies.</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">caching</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">cache-aside</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">write-through</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">lru</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">ttl</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">eviction</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">redis</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">latency</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the primary difference between a process and a thread?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the purpose of JWT (JSON Web Tokens) in web authentication?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In distributed systems, what is an idempotent API operation?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In an incident post-mortem, what is the primary purpose of the &#39;5 Whys&#39; root cause analysis technique?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Which data structure is typically used by the Dijkstra algorithm to find the shortest path in a weighted graph with non-negative weights?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In relational database design, what does the &#39;Third Normal Form&#39; (3NF) mandate?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">If 8 workers can complete a migration in 6 hours, how many workers are needed to complete the same migration in 4 hours at the same rate?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Which data structure is typically utilized to implement a Least Recently Used (LRU) Cache in O(1) time?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the next number in the pattern: 4, 9, 25, 49, 121, ?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Behavioral</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Describe a situation where a production or project issue occurred due to your oversight. How did you handle ownership and resolution?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">mistake</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">ownership</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">rollback</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">post-mortem</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">ci/cd</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">automation</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">prevention</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In a software team, Developer X says: &#39;Either our service has a memory leak or the incoming traffic doubled.&#39; If monitoring confirms traffic did NOT double, what can be deduced?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the difference between mutex and semaphore?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In Java or Python, what is garbage collection?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Behavioral</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Describe a time when you received constructive or critical feedback on your code during a code review. How did you react and what changes did you make?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">code review</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">feedback</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">n+1 query</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">eager loading</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">performance</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">refactor</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">growth</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What does the CAP theorem state regarding distributed data stores?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the main purpose of a database connection pool?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Describe the differences between monolithic and microservice architectures. When would you advise a team NOT to adopt microservices?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">monolith</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">microservices</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">deployment</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">scalability</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">devops</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">complexity</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">communication</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">testing</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">In Linux, what is the role of virtual memory?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is a memory leak? How can memory leaks occur in garbage-collected languages like Java, Python, or JavaScript?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">memory leak</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">garbage collection</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">reference</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">static collection</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">cache</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">event listener</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">heap</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">A server CPU operates at 40% utilization on weekday mornings and 80% on weekday evenings. What is the average weekday utilization if both periods are equal in duration?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Logical_reasoning</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Two microservices communicate via HTTP. If Service A has 99% uptime and Service B has 99% uptime, what is the composite availability of the end-to-end flow assuming independent failures?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Behavioral</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">Tell me about a time you had to learn an unfamiliar technology, programming language, or framework under tight time constraints.</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">learning</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">unfamiliar</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">documentation</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">prototype</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">websockets</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">redis</span>
+                        
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">deadline</span>
+                        
+                    </div>
+                    
+                </details>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">Technical</span>
+                    <span class="text-muted">Medium</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">What is the role of a message broker like RabbitMQ or Apache Kafka in microservice architectures?</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;"></p>
+                    
+                </details>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    &copy; 2026 InterviewMind v1.0.0 &mdash; Academic Project.
+                    <span class="text-muted">Built with Flask &amp; HTML5 Canvas · static Vercel export.</span>
+                </p>
+                <p class="mt-1">
+                    <a href="/about">About</a> &middot;
+                    <a href="/features">Features</a> &middot;
+                    <a href="/contact">Contact</a> &middot;
+                    <a href="/questions/">Question Bank</a> &middot;
+                    <a href="/health">Health</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/particles.js"></script>
+    <script src="/static/js/main.js"></script>
+    
+    <script src="/static/js/ai-engine.js"></script>
+    <script src="/static/js/resume-ats.js"></script>
+    <script src="/static/js/static-runtime.js"></script>
+    
+    
+</body>
+</html>

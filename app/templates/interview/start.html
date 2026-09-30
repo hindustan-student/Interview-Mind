@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label for="cgpa">CGPA (out of 10.0)</label>
                     <input type="number" step="0.01" min="0.0" max="10.0" id="cgpa" name="cgpa" class="form-control"
-                           placeholder="e.g. 8.50" value="{{ current_user.cgpa if current_user.cgpa is not none else '' }}" required>
+                           placeholder="e.g. 8.50" value="{{ current_user.cgpa if current_user.is_authenticated and current_user.cgpa is not none else '' }}" required>
                     <small class="text-muted" style="display:block;margin-top:6px;font-size:0.82rem;">Enter your current cumulative grade point average (0.00 – 10.00).</small>
                 </div>
                 <button type="submit" class="btn btn-primary w-full btn-lg">Begin Pre-Assessment (10 Questions) →</button>

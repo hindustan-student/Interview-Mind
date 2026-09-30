@@ -15,6 +15,7 @@ Author: InterviewMind Academic Project Team
 """
 
 import logging
+import os
 from flask import Flask, render_template_string
 from config import config
 
@@ -56,8 +57,8 @@ def create_app(config_name="development"):
     # Register template context processors
     _register_context_processors(app)
 
-    # Auto-create database on first run
-    if config_name in ("development", "testing"):
+    # Auto-create database on first run or on Vercel
+    if config_name in ("development", "testing") or os.environ.get("VERCEL"):
         with app.app_context():
             try:
                 db.create_all()
@@ -206,4 +207,5 @@ def _register_context_processors(app):
             "APP_NAME": app.config["APP_NAME"],
             "APP_VERSION": app.config["APP_VERSION"],
             "CURRENT_YEAR": __import__("datetime").datetime.now().year,
+            "STATIC_EXPORT": bool(app.config.get("STATIC_EXPORT")),
         }

@@ -7,16 +7,33 @@ User analytics dashboard — interview history, ATS reports, score trends.
 import json
 from collections import defaultdict
 from flask import Blueprint, render_template
-from flask_login import login_required, current_user
+from flask_login import current_user
+from app.security import login_required_unless_static
 from app.models import InterviewSession, ResumeReport, Answer
 
 dashboard_bp = Blueprint("dashboard", __name__)
 
 
 @dashboard_bp.route("/")
-@login_required
+@login_required_unless_static
 def index():
     """User dashboard home."""
+    if not current_user.is_authenticated:
+        return render_template(
+            "dashboard/index.html",
+            total_sessions=0,
+            completed_sessions=0,
+            avg_score=0,
+            best_score=0,
+            avg_confidence=0,
+            score_trend=[],
+            cat_summary=[],
+            recent_sessions=[],
+            recent_reports=[],
+            avg_ats=0,
+            total_reports=0,
+        )
+
     sessions = (
         InterviewSession.query
         .filter_by(user_id=current_user.id)

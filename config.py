@@ -27,27 +27,38 @@ class Config:
     PERMANENT_SESSION_LIFETIME = 3600  # 1 hour in seconds
 
     # --- Database ---
-    # Use a project-local SQLite by default. Ignore DATABASE_URL if it's
-    # not a SQLAlchemy-compatible URI (e.g. parent environment may set
-    # DATABASE_URL to something else entirely).
+    # In Vercel serverless environment, the filesystem is read-only except /tmp
+    IS_VERCEL = bool(os.environ.get("VERCEL"))
+
     _env_db = os.environ.get("DATABASE_URL", "")
     if _env_db and (_env_db.startswith("sqlite://") or _env_db.startswith("postgres")
                      or _env_db.startswith("mysql")):
         SQLALCHEMY_DATABASE_URI = _env_db
+    elif IS_VERCEL:
+        SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/interviewmind.db"
     else:
         SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR / 'instance' / 'interviewmind.db'}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
 
     # --- File Uploads ---
-    UPLOAD_FOLDER = os.path.join(BASE_DIR, "app", "static", "uploads")
+    if IS_VERCEL:
+        UPLOAD_FOLDER = "/tmp/uploads"
+    else:
+        UPLOAD_FOLDER = os.path.join(BASE_DIR, "app", "static", "uploads")
     MAX_CONTENT_LENGTH = int(os.environ.get("MAX_CONTENT_LENGTH", 5 * 1024 * 1024))  # 5 MB
     ALLOWED_EXTENSIONS = {"pdf", "docx", "txt"}
-    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    try:
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    except OSError:
+        pass
+
+    # --- Static export (Vercel static academic demo) ---
+    STATIC_EXPORT = os.environ.get("STATIC_EXPORT", "").lower() in ("1", "true", "yes")
 
     # --- Security ---
     BCRYPT_LOG_ROUNDS = int(os.environ.get("BCRYPT_LOG_ROUNDS", 12))
-    WTF_CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = False if STATIC_EXPORT else True
     WTF_CSRF_TIME_LIMIT = None
 
     # --- Application Metadata ---

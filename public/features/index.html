@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InterviewMind - AI-powered interview preparation system with mock interviews, resume ATS analyzer, and performance analytics.">
+    <meta name="interviewmind-static" content="1">
+    <title>Features | InterviewMind</title>
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+</head>
+<body data-static="true">
+    <!-- Neon particle background canvas -->
+    <canvas id="particle-canvas"
+            data-particle-canvas
+            data-density="0.00012"
+            data-max-particles="140"
+            data-min-particles="40"
+            data-speed="0.45"
+            data-link-distance="130"
+            data-mouse-radius="160"></canvas>
+
+    <div class="app-shell">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="brand">
+                    <span class="brand-mark">IM</span>
+                    <span>InterviewMind</span>
+                </a>
+
+                <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('is-open')">
+                    <span>&#9776;</span>
+                </button>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/features">Features</a></li>
+                    <li><a href="/about">About</a></li>
+                    
+                        <li><a href="/auth/login">Login</a></li>
+                        <li><a href="/auth/register" class="btn btn-primary" style="padding:6px 14px;font-size:0.88rem;">Get Started</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+
+        
+        <div class="container" style="padding-top:12px;">
+            <div class="alert alert-info" style="margin-bottom:0;">
+                Static academic demo on Vercel — accounts, interviews, and ATS reports stay in this browser (localStorage). Flask + SQLite still run locally with <code>python run.py</code>.
+            </div>
+        </div>
+        
+
+        <!-- Flash messages -->
+        
+            
+        
+        <div class="container flash-container" id="client-flash"></div>
+
+        <!-- Main content -->
+        <main>
+            
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">Features</h1>
+        <p class="section-subtitle">
+            Every feature is built end-to-end — from the AI scoring engine to the
+            neon-animated UI — to deliver a world-class interview preparation experience.
+        </p>
+
+        <div class="grid grid-3">
+            
+            <div class="card color-cyan animate-fade-up" style="animation-delay:0.0s;">
+                <div class="card-icon">🧠</div>
+                <h3>AI Mock Interview</h3>
+                <p>Simulates a real interviewer with role-specific questions, difficulty levels, and instant STAR-method feedback on every answer.</p>
+            </div>
+            
+            <div class="card color-magenta animate-fade-up" style="animation-delay:0.05s;">
+                <div class="card-icon">📄</div>
+                <h3>Resume ATS Analyzer</h3>
+                <p>Upload PDF / DOCX / TXT resume and get an instant ATS score with keyword coverage, missing sections, and tailored recommendations.</p>
+            </div>
+            
+            <div class="card color-purple animate-fade-up" style="animation-delay:0.1s;">
+                <div class="card-icon">📚</div>
+                <h3>Curated Question Bank</h3>
+                <p>Hand-curated questions across behavioral, technical, system design, coding, HR, and situational categories — modeled on top tech interview prep.</p>
+            </div>
+            
+            <div class="card color-green animate-fade-up" style="animation-delay:0.15000000000000002s;">
+                <div class="card-icon">📈</div>
+                <h3>Performance Dashboard</h3>
+                <p>Track every mock interview, see your score trends, identify weak categories, and watch your confidence grow over time.</p>
+            </div>
+            
+            <div class="card color-yellow animate-fade-up" style="animation-delay:0.2s;">
+                <div class="card-icon">🔒</div>
+                <h3>Secure Auth</h3>
+                <p>Flask-Login sessions, Werkzeug password hashing (PBKDF2-SHA256), CSRF protection, and per-session interview history.</p>
+            </div>
+            
+            <div class="card color-blue animate-fade-up" style="animation-delay:0.25s;">
+                <div class="card-icon">⚡</div>
+                <h3>Real-Time Feedback</h3>
+                <p>After every answer: score, strengths, improvements, STAR breakdown, keyword match, and confidence proxy — all computed locally, no API needed.</p>
+            </div>
+            
+        </div>
+
+        <div class="card mt-4">
+            <h2 class="mb-2">Architecture Highlights</h2>
+            <p class="text-secondary">
+                InterviewMind follows a clean, layered architecture so that academic
+                reviewers can audit each layer independently:
+            </p>
+            <ul class="mt-2" style="list-style:none;padding-left:0;color:var(--text-secondary);line-height:1.9;">
+                <li>✓ <strong>Application Factory Pattern</strong> — modular Flask app creation across dev/test/prod configs.</li>
+                <li>✓ <strong>Blueprint-Based Routing</strong> — main, auth, interview, resume, questions, dashboard, API.</li>
+                <li>✓ <strong>Service Layer</strong> — AI interview engine, resume analyzer, question bank are pure-Python and unit-testable.</li>
+                <li>✓ <strong>SQLAlchemy ORM Models</strong> — User, InterviewSession, Answer, ResumeReport, QuestionBankItem.</li>
+                <li>✓ <strong>Custom Canvas Particle Engine</strong> — neon background with mouse interactivity and DPR-aware rendering.</li>
+                <li>✓ <strong>Accessibility-Conscious</strong> — respects <code>prefers-reduced-motion</code>, keyboard-navigable forms, ARIA labels.</li>
+                <li>✓ <strong>Pytest Test Suite</strong> — covers routes, AI engine, resume analyzer.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    &copy; 2026 InterviewMind v1.0.0 &mdash; Academic Project.
+                    <span class="text-muted">Built with Flask &amp; HTML5 Canvas · static Vercel export.</span>
+                </p>
+                <p class="mt-1">
+                    <a href="/about">About</a> &middot;
+                    <a href="/features">Features</a> &middot;
+                    <a href="/contact">Contact</a> &middot;
+                    <a href="/questions/">Question Bank</a> &middot;
+                    <a href="/health">Health</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/particles.js"></script>
+    <script src="/static/js/main.js"></script>
+    
+    <script src="/static/js/ai-engine.js"></script>
+    <script src="/static/js/resume-ats.js"></script>
+    <script src="/static/js/static-runtime.js"></script>
+    
+    
+</body>
+</html>

@@ -9,6 +9,7 @@
             <a href="{{ url_for('interview.start') }}" class="btn btn-primary">+ New Interview</a>
         </div>
 
+            <div id="history-root">
         {% if sessions %}
         <table class="table">
             <thead>
@@ -69,6 +70,7 @@
             <a href="{{ url_for('interview.start') }}" class="btn btn-primary">Start Your First Interview</a>
         </div>
         {% endif %}
+            </div>
     </div>
 </section>
 {% endblock %}

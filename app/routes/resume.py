@@ -8,7 +8,8 @@ import os
 import json
 from datetime import datetime, timezone
 from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
-from flask_login import login_required, current_user
+from flask_login import current_user
+from app.security import login_required_unless_static
 from werkzeug.utils import secure_filename
 from app.extensions import db
 from app.models import ResumeReport
@@ -26,7 +27,7 @@ def allowed_file(filename: str) -> bool:
 
 
 @resume_bp.route("/upload", methods=["GET", "POST"])
-@login_required
+@login_required_unless_static
 def upload():
     """Upload a resume for ATS analysis."""
     if request.method == "POST":
@@ -81,8 +82,15 @@ def upload():
     return render_template("resume/upload.html")
 
 
+@resume_bp.route("/view")
+@login_required_unless_static
+def view_static():
+    """Client-side ATS report used by the static Vercel export."""
+    return render_template("resume/report_static.html")
+
+
 @resume_bp.route("/report/<int:report_id>")
-@login_required
+@login_required_unless_static
 def report(report_id):
     """Display a single resume ATS report."""
     rep = ResumeReport.query.get_or_404(report_id)
@@ -103,9 +111,11 @@ def report(report_id):
 
 
 @resume_bp.route("/history")
-@login_required
+@login_required_unless_static
 def history():
     """List all of the user's resume reports."""
+    if not current_user.is_authenticated:
+        return render_template("resume/history.html", reports=[])
     reports = (
         ResumeReport.query
         .filter_by(user_id=current_user.id)

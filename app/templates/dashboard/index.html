@@ -4,33 +4,33 @@
 {% block content %}
 <section class="section">
     <div class="container">
-        <h1 class="mb-1">Welcome back, {{ current_user.username }}</h1>
+        <h1 class="mb-1">Welcome back, <span id="dash-username">{{ current_user.username if current_user.is_authenticated else 'Guest' }}</span></h1>
         <p class="text-secondary mb-3">Your interview preparation progress at a glance.</p>
 
         <!-- KPI cards -->
         <div class="stat-grid mb-3">
             <div class="card stat-card">
-                <div class="stat-value">{{ total_sessions }}</div>
+                <div class="stat-value" id="kpi-sessions">{{ total_sessions }}</div>
                 <div class="stat-label">Total Sessions</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-value">{{ completed_sessions }}</div>
+                <div class="stat-value" id="kpi-completed">{{ completed_sessions }}</div>
                 <div class="stat-label">Completed</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-value">{{ avg_score }}</div>
+                <div class="stat-value" id="kpi-avg">{{ avg_score }}</div>
                 <div class="stat-label">Avg Score</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-value">{{ best_score }}</div>
+                <div class="stat-value" id="kpi-best">{{ best_score }}</div>
                 <div class="stat-label">Best Score</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-value">{{ (avg_confidence * 100)|round }}%</div>
+                <div class="stat-value" id="kpi-confidence">{{ (avg_confidence * 100)|round }}%</div>
                 <div class="stat-label">Avg Confidence</div>
             </div>
             <div class="card stat-card">
-                <div class="stat-value">{{ avg_ats }}</div>
+                <div class="stat-value" id="kpi-ats">{{ avg_ats }}</div>
                 <div class="stat-label">Avg ATS Score</div>
             </div>
         </div>
@@ -73,7 +73,7 @@
 
         <!-- Recent activity -->
         <div class="grid grid-2">
-            <div class="card">
+            <div class="card" id="dash-interviews">
                 <h2 class="mb-2">Recent Interviews</h2>
                 {% if recent_sessions %}
                 <div style="display:flex;flex-direction:column;gap:8px;">
@@ -94,7 +94,7 @@
                 <p class="text-muted">No interviews yet. <a href="{{ url_for('interview.start') }}">Start your first →</a></p>
                 {% endif %}
             </div>
-            <div class="card color-magenta">
+            <div class="card color-magenta" id="dash-reports">
                 <h2 class="mb-2">Recent Resume Reports</h2>
                 {% if recent_reports %}
                 <div style="display:flex;flex-direction:column;gap:8px;">

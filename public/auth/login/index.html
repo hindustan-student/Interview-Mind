@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InterviewMind - AI-powered interview preparation system with mock interviews, resume ATS analyzer, and performance analytics.">
+    <meta name="interviewmind-static" content="1">
+    <title>Login | InterviewMind</title>
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+</head>
+<body data-static="true">
+    <!-- Neon particle background canvas -->
+    <canvas id="particle-canvas"
+            data-particle-canvas
+            data-density="0.00012"
+            data-max-particles="140"
+            data-min-particles="40"
+            data-speed="0.45"
+            data-link-distance="130"
+            data-mouse-radius="160"></canvas>
+
+    <div class="app-shell">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="brand">
+                    <span class="brand-mark">IM</span>
+                    <span>InterviewMind</span>
+                </a>
+
+                <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('is-open')">
+                    <span>&#9776;</span>
+                </button>
+
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/features">Features</a></li>
+                    <li><a href="/about">About</a></li>
+                    
+                        <li><a href="/auth/login">Login</a></li>
+                        <li><a href="/auth/register" class="btn btn-primary" style="padding:6px 14px;font-size:0.88rem;">Get Started</a></li>
+                    
+                </ul>
+            </div>
+        </nav>
+
+        
+        <div class="container" style="padding-top:12px;">
+            <div class="alert alert-info" style="margin-bottom:0;">
+                Static academic demo on Vercel — accounts, interviews, and ATS reports stay in this browser (localStorage). Flask + SQLite still run locally with <code>python run.py</code>.
+            </div>
+        </div>
+        
+
+        <!-- Flash messages -->
+        
+            
+        
+        <div class="container flash-container" id="client-flash"></div>
+
+        <!-- Main content -->
+        <main>
+            
+<section class="section">
+    <div class="container">
+        <div class="form-card card animate-fade-up">
+            <h1 class="text-center mb-2">Welcome Back</h1>
+            <p class="text-secondary text-center mb-3">
+                Log in to continue your interview preparation journey.
+            </p>
+            <form method="POST" action="/auth/login">
+                <input type="hidden" name="csrf_token" value="IjAxM2EwM2EzOTRmM2I1OTVhYmVkNzgwYTIyMjg5YTk5MGEyOWM2YjUi.arzQkw.yPaavICtydJesinU2nmvbhMBi9M">
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control"
+                           value="" placeholder="you@example.com" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           placeholder="••••••••" required>
+                </div>
+                <div class="form-group flex items-center gap-1">
+                    <input type="checkbox" id="remember" name="remember" class="form-control" style="width:auto;">
+                    <label for="remember" style="margin:0;text-transform:none;letter-spacing:0;color:var(--text-secondary);font-size:0.9rem;">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Log In</button>
+            </form>
+            <p class="text-center mt-3 text-secondary">
+                Don't have an account?
+                <a href="/auth/register">Sign up here</a>.
+            </p>
+        </div>
+    </div>
+</section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    &copy; 2026 InterviewMind v1.0.0 &mdash; Academic Project.
+                    <span class="text-muted">Built with Flask &amp; HTML5 Canvas · static Vercel export.</span>
+                </p>
+                <p class="mt-1">
+                    <a href="/about">About</a> &middot;
+                    <a href="/features">Features</a> &middot;
+                    <a href="/contact">Contact</a> &middot;
+                    <a href="/questions/">Question Bank</a> &middot;
+                    <a href="/health">Health</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/particles.js"></script>
+    <script src="/static/js/main.js"></script>
+    
+    <script src="/static/js/ai-engine.js"></script>
+    <script src="/static/js/resume-ats.js"></script>
+    <script src="/static/js/static-runtime.js"></script>
+    
+    
+</body>
+</html>
