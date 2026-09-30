@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}Resume Report | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container" style="max-width:960px;">
+        <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:12px;">
+            <h1>Resume ATS Report</h1>
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-secondary">+ Upload Another</a>
+        </div>
+
+        <div class="card mb-3 text-center">
+            <div class="score-ring" style="--pct:{{ report.ats_score }};">
+                <div class="score-text">{{ report.ats_score }}</div>
+            </div>
+            <h2 class="mb-1">ATS Score</h2>
+            <p class="text-secondary">
+                <strong>{{ report.filename }}</strong> &middot;
+                {{ report.word_count }} words &middot;
+                {% if report.target_role %}Role: {{ report.target_role }}{% else %}Auto-detected{% endif %}
+            </p>
+        </div>
+
+        <div class="grid grid-2 mb-3">
+            <div class="card">
+                <h3 class="mb-2">Matched Keywords ({{ matched|length }})</h3>
+                {% if matched %}
+                <div class="flex gap-1" style="flex-wrap:wrap;">
+                    {% for kw in matched %}
+                    <span class="tag tag-success">{{ kw }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No role-relevant keywords detected.</p>
+                {% endif %}
+            </div>
+            <div class="card color-magenta">
+                <h3 class="mb-2">Missing Keywords ({{ missing|length }})</h3>
+                {% if missing %}
+                <div class="flex gap-1" style="flex-wrap:wrap;">
+                    {% for kw in missing %}
+                    <span class="tag tag-danger">{{ kw }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">All role keywords covered! 🎯</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="grid grid-2 mb-3">
+            <div class="card">
+                <h3 class="mb-2">Sections Found</h3>
+                {% if sections %}
+                <div class="flex gap-1" style="flex-wrap:wrap;">
+                    {% for s in sections %}
+                    <span class="tag">{{ s|title }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No standard sections detected.</p>
+                {% endif %}
+                <p class="text-secondary mt-2" style="font-size:0.88rem;">
+                    Expected: Experience, Education, Skills, Projects, Summary, Contact
+                </p>
+            </div>
+            <div class="card color-purple">
+                <h3 class="mb-2">Coverage</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:{{ (report.keyword_coverage * 100)|round }}%;"></div>
+                </div>
+                <p class="text-secondary mt-2">
+                    <strong style="color:var(--neon-cyan);">{{ (report.keyword_coverage * 100)|round }}%</strong>
+                    of role-relevant keywords found in your resume.
+                </p>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <h2 class="mb-2">Recommendations</h2>
+            <ol style="line-height:1.9;padding-left:20px;">
+                {% for rec in recommendations %}
+                <li>{{ rec }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('resume.history') }}" class="btn btn-ghost">View All Reports</a>
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary">Practice Interview →</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

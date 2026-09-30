@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Upload Resume | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="form-card card animate-fade-up" style="max-width:560px;">
+            <h1 class="text-center mb-2">Resume ATS Analyzer</h1>
+            <p class="text-secondary text-center mb-3">
+                Upload your resume (PDF / DOCX / TXT, up to 5 MB) and get an instant
+                ATS score, keyword coverage, and tailored recommendations.
+            </p>
+            <form method="POST" action="{{ url_for('resume.upload') }}" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="resume">Resume File</label>
+                    <input type="file" id="resume" name="resume" class="form-control" accept=".pdf,.docx,.txt" required>
+                </div>
+                <div class="form-group">
+                    <label for="target_role">Target Role (optional)</label>
+                    <select id="target_role" name="target_role" class="form-control">
+                        <option value="">— Auto-detect —</option>
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value="Data Scientist">Data Scientist</option>
+                        <option value="Data Analyst">Data Analyst</option>
+                        <option value="ML Engineer">ML Engineer</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="DevOps Engineer">DevOps Engineer</option>
+                        <option value="Frontend Developer">Frontend Developer</option>
+                        <option value="Backend Developer">Backend Developer</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-full btn-lg">Analyze Resume</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

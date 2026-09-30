@@ -1,0 +1,41 @@
+# Dependencies to ignore
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Instance-specific data
+instance/
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+*.log.*
+
+# OS
+Thumbs.db

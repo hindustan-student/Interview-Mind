@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Question Bank | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="mb-1">Question Bank</h1>
+        <p class="text-secondary mb-3">Browse {{ questions|length }} curated interview questions across {{ categories|length }} categories.</p>
+
+        <!-- Filter bar -->
+        <form method="GET" class="card mb-3">
+            <div class="grid grid-3" style="gap:16px;">
+                <div class="form-group" style="margin:0;">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" class="form-control" onchange="this.form.submit()">
+                        <option value="mixed" {{ 'selected' if current_category == 'mixed' }}>All Categories</option>
+                        {% for c in categories %}
+                        <option value="{{ c.key }}" {{ 'selected' if current_category == c.key }}>{{ c.label }} ({{ c.count }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label for="difficulty">Difficulty</label>
+                    <select id="difficulty" name="difficulty" class="form-control" onchange="this.form.submit()">
+                        <option value="mixed" {{ 'selected' if current_difficulty == 'mixed' }}>All Levels</option>
+                        <option value="easy" {{ 'selected' if current_difficulty == 'easy' }}>Easy</option>
+                        <option value="medium" {{ 'selected' if current_difficulty == 'medium' }}>Medium</option>
+                        <option value="hard" {{ 'selected' if current_difficulty == 'hard' }}>Hard</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin:0;display:flex;align-items:flex-end;">
+                    <a href="{{ url_for('interview.start') }}" class="btn btn-primary w-full">Start Mock Interview →</a>
+                </div>
+            </div>
+        </form>
+
+        <!-- Questions list -->
+        <div class="grid grid-2">
+            {% for q in questions %}
+            <div class="card">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="tag">{{ q.category|title }}</span>
+                    <span class="text-muted">{{ q.diff|title }}</span>
+                </div>
+                <h3 style="font-size:1.05rem;line-height:1.5;margin-bottom:12px;">{{ q.q }}</h3>
+                <details>
+                    <summary style="cursor:pointer;color:var(--neon-cyan);font-size:0.88rem;">Show model answer</summary>
+                    <p class="mt-1 text-secondary" style="font-size:0.9rem;line-height:1.6;">{{ q.a }}</p>
+                    {% if q.keywords_list %}
+                    <div class="mt-1 flex gap-1" style="flex-wrap:wrap;">
+                        {% for kw in q.keywords_list %}
+                        <span class="tag" style="font-size:0.72rem;padding:2px 8px;">{{ kw }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </details>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

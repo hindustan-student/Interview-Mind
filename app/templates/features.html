@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Features | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">Features</h1>
+        <p class="section-subtitle">
+            Every feature is built end-to-end — from the AI scoring engine to the
+            neon-animated UI — to deliver a world-class interview preparation experience.
+        </p>
+
+        <div class="grid grid-3">
+            {% for f in features %}
+            <div class="card color-{{ f.color }} animate-fade-up" style="animation-delay:{{ loop.index0 * 0.05 }}s;">
+                <div class="card-icon">{% if f.icon == 'brain' %}🧠{% elif f.icon == 'file-text' %}📄{% elif f.icon == 'database' %}📚{% elif f.icon == 'chart-line' %}📈{% elif f.icon == 'shield' %}🔒{% elif f.icon == 'bolt' %}⚡{% else %}✨{% endif %}</div>
+                <h3>{{ f.title }}</h3>
+                <p>{{ f.desc }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="card mt-4">
+            <h2 class="mb-2">Architecture Highlights</h2>
+            <p class="text-secondary">
+                InterviewMind follows a clean, layered architecture so that academic
+                reviewers can audit each layer independently:
+            </p>
+            <ul class="mt-2" style="list-style:none;padding-left:0;color:var(--text-secondary);line-height:1.9;">
+                <li>✓ <strong>Application Factory Pattern</strong> — modular Flask app creation across dev/test/prod configs.</li>
+                <li>✓ <strong>Blueprint-Based Routing</strong> — main, auth, interview, resume, questions, dashboard, API.</li>
+                <li>✓ <strong>Service Layer</strong> — AI interview engine, resume analyzer, question bank are pure-Python and unit-testable.</li>
+                <li>✓ <strong>SQLAlchemy ORM Models</strong> — User, InterviewSession, Answer, ResumeReport, QuestionBankItem.</li>
+                <li>✓ <strong>Custom Canvas Particle Engine</strong> — neon background with mouse interactivity and DPR-aware rendering.</li>
+                <li>✓ <strong>Accessibility-Conscious</strong> — respects <code>prefers-reduced-motion</code>, keyboard-navigable forms, ARIA labels.</li>
+                <li>✓ <strong>Pytest Test Suite</strong> — covers routes, AI engine, resume analyzer.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

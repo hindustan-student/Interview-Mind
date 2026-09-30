@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Resume History | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:12px;">
+            <h1>Your Resume Reports</h1>
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">+ Upload Resume</a>
+        </div>
+        {% if reports %}
+        <table class="table">
+            <thead>
+                <tr><th>Date</th><th>Filename</th><th>Role</th><th>Words</th><th>ATS Score</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td>{{ r.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ r.filename }}</td>
+                    <td>{{ r.target_role or 'Auto' }}</td>
+                    <td>{{ r.word_count }}</td>
+                    <td><strong style="color:var(--neon-cyan);">{{ r.ats_score }}/100</strong></td>
+                    <td><a href="{{ url_for('resume.report', report_id=r.id) }}" class="btn btn-ghost" style="padding:4px 10px;font-size:0.85rem;">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="card text-center">
+            <h3 class="mb-2">No resume reports yet</h3>
+            <p class="text-secondary mb-3">Upload your resume to get an instant ATS analysis.</p>
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-primary">Upload Your Resume</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

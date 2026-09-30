@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %}About | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">About InterviewMind</h1>
+        <p class="section-subtitle">
+            An academic project demonstrating full-stack Python web development,
+            rule-based AI/NLP techniques, and modern front-end engineering.
+        </p>
+
+        <div class="card mb-3">
+            <h2 class="mb-2">Project Mission</h2>
+            <p>
+                InterviewMind is built to bridge a critical gap in career-readiness
+                education: most candidates rehearse interview answers in their heads,
+                but rarely get structured feedback. This system simulates a real
+                interviewer — generating role-appropriate questions, scoring each
+                answer against the STAR method, identifying keyword gaps, and
+                surfacing concrete strengths and improvements. The goal is to give
+                every student access to interview coaching that was previously
+                available only through paid services or one-on-one mentors.
+            </p>
+            <p class="mt-2">
+                Beyond its functional value, the project doubles as a reference
+                implementation of a clean, layered Flask architecture. Reviewers
+                can audit the application factory, blueprint routing, SQLAlchemy
+                ORM models, and service-layer design patterns in a single
+                readable codebase. The accompanying test suite and documentation
+                make it suitable as a teaching artifact for software-engineering
+                courses or capstone evaluations.
+            </p>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <h3 class="mb-2">Problem Statement</h3>
+                <p>
+                    Candidates routinely lose job offers not for lack of technical
+                    skill, but because of weak answer structure, missing keywords,
+                    hedge-word heavy delivery, or resumes that fail ATS filters.
+                    InterviewMind attacks each of these failure modes directly.
+                </p>
+            </div>
+            <div class="card color-magenta">
+                <h3 class="mb-2">Solution Approach</h3>
+                <p>
+                    A rule-based AI scoring engine — no API keys, no cost-per-call —
+                    evaluates answers on length, clarity, keyword coverage, STAR
+                    completeness, and a confidence proxy. The resume analyzer
+                    detects missing sections, missing keywords, and ATS blockers.
+                </p>
+            </div>
+            <div class="card color-purple">
+                <h3 class="mb-2">Scope &amp; Limitations</h3>
+                <p>
+                    The current engine is intentionally dependency-light so the
+                    project runs without external API keys. The scoring logic can
+                    be swapped to call OpenAI / Gemini / Claude later via the same
+                    <code>score_answer()</code> interface — see <code>docs/architecture.md</code>.
+                </p>
+            </div>
+            <div class="card color-green">
+                <h3 class="mb-2">Academic Objectives Met</h3>
+                <p>
+                    ✓ Full-stack web application ✓ Database design &amp; ORM
+                    ✓ Authentication &amp; security ✓ Rule-based NLP
+                    ✓ Modern UI/UX with canvas animation ✓ Test coverage
+                    ✓ Documentation &amp; README
+                </p>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <h2 class="mb-2">Tech Stack</h2>
+            <div class="flex gap-2" style="flex-wrap:wrap;">
+                <span class="tag">Python 3.10+</span>
+                <span class="tag">Flask 3.0</span>
+                <span class="tag">Flask-SQLAlchemy</span>
+                <span class="tag">Flask-Login</span>
+                <span class="tag">Flask-WTF (CSRF)</span>
+                <span class="tag">Flask-Bcrypt</span>
+                <span class="tag">Jinja2 Templates</span>
+                <span class="tag">HTML5 Canvas API</span>
+                <span class="tag">CSS3 + Custom Properties</span>
+                <span class="tag">Vanilla JavaScript</span>
+                <span class="tag">PyPDF2 / python-docx</span>
+                <span class="tag">pytest</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

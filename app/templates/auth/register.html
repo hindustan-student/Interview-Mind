@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Register | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="form-card card animate-fade-up">
+            <h1 class="text-center mb-2">Create Your Free Account</h1>
+            <p class="text-secondary text-center mb-3">
+                Start practicing interviews with AI feedback in under a minute.
+            </p>
+            <form method="POST" action="{{ url_for('auth.register') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control"
+                           value="{{ form.get('username', '') }}" placeholder="jane_doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control"
+                           value="{{ form.get('email', '') }}" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="full_name">Full Name <span class="text-muted">(optional)</span></label>
+                    <input type="text" id="full_name" name="full_name" class="form-control"
+                           value="{{ form.get('full_name', '') }}" placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label for="target_role">Target Role <span class="text-muted">(optional)</span></label>
+                    <select id="target_role" name="target_role" class="form-control">
+                        <option value="">— Select a role —</option>
+                        <option value="Software Engineer" {{ 'selected' if form.get('target_role') == 'Software Engineer' else '' }}>Software Engineer</option>
+                        <option value="Data Scientist" {{ 'selected' if form.get('target_role') == 'Data Scientist' else '' }}>Data Scientist</option>
+                        <option value="Data Analyst" {{ 'selected' if form.get('target_role') == 'Data Analyst' else '' }}>Data Analyst</option>
+                        <option value="ML Engineer" {{ 'selected' if form.get('target_role') == 'ML Engineer' else '' }}>ML Engineer</option>
+                        <option value="Product Manager" {{ 'selected' if form.get('target_role') == 'Product Manager' else '' }}>Product Manager</option>
+                        <option value="DevOps Engineer" {{ 'selected' if form.get('target_role') == 'DevOps Engineer' else '' }}>DevOps Engineer</option>
+                        <option value="Frontend Developer" {{ 'selected' if form.get('target_role') == 'Frontend Developer' else '' }}>Frontend Developer</option>
+                        <option value="Backend Developer" {{ 'selected' if form.get('target_role') == 'Backend Developer' else '' }}>Backend Developer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password <span class="text-muted">(min 8 chars)</span></label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           placeholder="••••••••" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control"
+                           placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Create Account</button>
+            </form>
+            <p class="text-center mt-3 text-secondary">
+                Already have an account?
+                <a href="{{ url_for('auth.login') }}">Log in here</a>.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

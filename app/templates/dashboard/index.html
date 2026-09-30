@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="mb-1">Welcome back, {{ current_user.username }}</h1>
+        <p class="text-secondary mb-3">Your interview preparation progress at a glance.</p>
+
+        <!-- KPI cards -->
+        <div class="stat-grid mb-3">
+            <div class="card stat-card">
+                <div class="stat-value">{{ total_sessions }}</div>
+                <div class="stat-label">Total Sessions</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-value">{{ completed_sessions }}</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-value">{{ avg_score }}</div>
+                <div class="stat-label">Avg Score</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-value">{{ best_score }}</div>
+                <div class="stat-label">Best Score</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-value">{{ (avg_confidence * 100)|round }}%</div>
+                <div class="stat-label">Avg Confidence</div>
+            </div>
+            <div class="card stat-card">
+                <div class="stat-value">{{ avg_ats }}</div>
+                <div class="stat-label">Avg ATS Score</div>
+            </div>
+        </div>
+
+        <!-- Score trend -->
+        {% if score_trend %}
+        <div class="card mb-3">
+            <h2 class="mb-2">Score Trend</h2>
+            <p class="text-secondary mb-2">Your overall interview score over your last {{ score_trend|length }} sessions.</p>
+            <div style="display:flex;align-items:flex-end;gap:8px;height:160px;padding:12px 0;border-bottom:1px solid var(--border-soft);">
+                {% for p in score_trend %}
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
+                    <div style="width:60%;background:linear-gradient(180deg,var(--neon-cyan),var(--neon-magenta));border-radius:4px 4px 0 0;height:{{ p.score }}%;box-shadow:0 0 12px rgba(0,240,255,0.4);min-height:4px;" title="{{ p.score }}"></div>
+                    <span style="font-size:0.7rem;color:var(--text-muted);margin-top:4px;">{{ p.label }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Category breakdown -->
+        {% if cat_summary %}
+        <div class="card mb-3">
+            <h2 class="mb-2">Category Performance</h2>
+            <div class="grid grid-auto">
+                {% for c in cat_summary %}
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <strong>{{ c.category }}</strong>
+                        <span class="text-secondary">{{ c.avg }}/100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:{{ c.avg }}%;"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recent activity -->
+        <div class="grid grid-2">
+            <div class="card">
+                <h2 class="mb-2">Recent Interviews</h2>
+                {% if recent_sessions %}
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    {% for s in recent_sessions %}
+                    <a href="{{ url_for('interview.results', session_id=s.id) }}" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:8px;text-decoration:none;color:inherit;border:1px solid var(--border-soft);">
+                        <div>
+                            <strong>{{ s.role }}</strong><br>
+                            <span class="text-muted" style="font-size:0.82rem;">{{ s.started_at.strftime('%b %d, %H:%M') }}</span>
+                        </div>
+                        <div class="text-right">
+                            <strong style="color:var(--neon-cyan);">{{ s.overall_score or '—' }}</strong><br>
+                            <span class="text-muted" style="font-size:0.82rem;">{{ s.answered_count }}/{{ s.total_questions }} Qs</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No interviews yet. <a href="{{ url_for('interview.start') }}">Start your first →</a></p>
+                {% endif %}
+            </div>
+            <div class="card color-magenta">
+                <h2 class="mb-2">Recent Resume Reports</h2>
+                {% if recent_reports %}
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    {% for r in recent_reports %}
+                    <a href="{{ url_for('resume.report', report_id=r.id) }}" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(255,255,255,0.03);border-radius:8px;text-decoration:none;color:inherit;border:1px solid var(--border-soft);">
+                        <div>
+                            <strong style="font-size:0.88rem;">{{ r.filename[:24] }}{% if r.filename|length > 24 %}…{% endif %}</strong><br>
+                            <span class="text-muted" style="font-size:0.82rem;">{{ r.created_at.strftime('%b %d, %H:%M') }}</span>
+                        </div>
+                        <strong style="color:var(--neon-cyan);">{{ r.ats_score }}/100</strong>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No resume reports yet. <a href="{{ url_for('resume.upload') }}">Upload your resume →</a></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mt-3">
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary btn-lg">Start New Interview</a>
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-secondary btn-lg">Analyze Resume</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block title %}Interview Results | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container" style="max-width:980px;">
+        <!-- Headline score -->
+        <div class="card mb-3 text-center">
+            <h1 class="mb-2">Interview Performance Report</h1>
+            <p class="text-secondary mb-3">
+                {{ session.role }} &middot; Calibrated Difficulty: <strong style="color:var(--neon-magenta);text-transform:uppercase;">{% if session.difficulty == 'hard' %}Tough / Hard{% else %}{{ session.difficulty|title }}{% endif %}</strong>
+            </p>
+
+            <div class="score-ring" style="--pct:{{ session.overall_score }};">
+                <div class="score-text">{{ session.overall_score }}%</div>
+            </div>
+
+            <p class="text-secondary mb-2" style="font-size:1.05rem;">
+                Total Marks Earned: <strong style="color:var(--neon-cyan);font-size:1.25rem;">{{ metrics.total_marks_earned or session.overall_score }}/{{ metrics.total_marks_possible or 100 }} Marks</strong>
+                &middot; Answered {{ session.answered_count }}/{{ session.total_questions }} questions
+            </p>
+
+            <div class="flex items-center justify-center gap-1 mt-2 mb-2" style="flex-wrap:wrap;">
+                {% if session.cgpa is not none %}
+                    <span class="tag tag-cyan" style="font-size:0.95rem;padding:6px 14px;">CGPA: {{ session.cgpa }}</span>
+                {% endif %}
+                {% if session.overall_score >= 80 %}
+                    <span class="tag tag-success" style="font-size:0.95rem;padding:6px 14px;">Hire-grade performance 🎯</span>
+                {% elif session.overall_score >= 60 %}
+                    <span class="tag tag-warning" style="font-size:0.95rem;padding:6px 14px;">Borderline — solid progress</span>
+                {% else %}
+                    <span class="tag tag-danger" style="font-size:0.95rem;padding:6px 14px;">Needs more preparation</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Pre-Assessment Summary Card -->
+        {% if session.pre_assessment_score is not none %}
+        <div class="card mb-3">
+            <h2 class="mb-2" style="font-size:1.25rem;color:var(--neon-cyan);">Initial Assessment Diagnostic</h2>
+            <div class="grid grid-3 gap-2 text-center">
+                <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border-soft);">
+                    <div class="text-secondary" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Assessment Score</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--neon-cyan);margin-top:4px;">
+                        {{ session.pre_assessment_score|round(0)|int }}/10
+                    </div>
+                    <div class="text-muted" style="font-size:0.8rem;">Common Questions</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border-soft);">
+                    <div class="text-secondary" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Performance Level</div>
+                    <div style="margin-top:10px;">
+                        {% if session.pre_assessment_category == 'Excellent' %}
+                            <span class="tag tag-success" style="font-weight:700;font-size:1rem;padding:4px 12px;">Excellent</span>
+                        {% elif session.pre_assessment_category == 'Above Medium' %}
+                            <span class="tag tag-cyan" style="font-weight:700;font-size:1rem;padding:4px 12px;">Above Medium</span>
+                        {% else %}
+                            <span class="tag tag-warning" style="font-weight:700;font-size:1rem;padding:4px 12px;">Medium</span>
+                        {% endif %}
+                    </div>
+                    <div class="text-muted mt-1" style="font-size:0.8rem;">Preparation & Mindset</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border-soft);">
+                    <div class="text-secondary" style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Calibrated Difficulty</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:700;color:var(--neon-magenta);margin-top:8px;text-transform:uppercase;">
+                        {% if session.difficulty == 'hard' %}Tough / Hard{% else %}{{ session.difficulty|title }}{% endif %}
+                    </div>
+                    <div class="text-muted" style="font-size:0.8rem;">Adaptive Calibration</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- 6-Level Section Breakdown Table with Marks and Percentage Allocation -->
+        {% if level_summary %}
+        <div class="card mb-3">
+            <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:8px;">
+                <div>
+                    <h2 style="font-size:1.3rem;margin:0;">6-Level Section Performance Matrix</h2>
+                    <p class="text-secondary" style="font-size:0.88rem;margin:4px 0 0 0;">
+                        Detailed score and percentage breakdown across each evaluated level.
+                    </p>
+                </div>
+                <span class="tag tag-purple">6 Levels &middot; 100 Marks (100%)</span>
+            </div>
+
+            <div style="overflow-x:auto;">
+                <table class="table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Level & Section</th>
+                            <th>Weight %</th>
+                            <th>Questions</th>
+                            <th>Marks Earned / Allocated</th>
+                            <th>Level Score %</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lvl in level_summary %}
+                        <tr>
+                            <td>
+                                <strong style="color:var(--neon-cyan);">Level {{ lvl.level }}</strong>
+                                <div style="font-size:0.88rem;color:var(--text-primary);">{{ lvl.title }}</div>
+                            </td>
+                            <td>
+                                <span class="tag tag-cyan">{{ lvl.percentage_weight }}%</span>
+                            </td>
+                            <td>
+                                <span style="font-size:0.88rem;">{{ lvl.question_count }} Qs ({{ lvl.mcq_count }} MCQ, {{ lvl.desc_count }} Desc)</span>
+                            </td>
+                            <td>
+                                <strong style="color:var(--text-primary);font-size:0.98rem;">{{ lvl.earned_marks }}/{{ lvl.total_marks|int }}</strong>
+                                <span class="text-muted" style="font-size:0.8rem;">pts</span>
+                            </td>
+                            <td style="min-width:140px;">
+                                <div class="flex items-center justify-between mb-1" style="font-size:0.85rem;">
+                                    <strong style="color:var(--neon-cyan);">{{ lvl.achieved_percentage }}%</strong>
+                                </div>
+                                <div class="progress-bar" style="margin-top:2px;">
+                                    <div class="progress-fill" style="width:{{ lvl.achieved_percentage }}%;"></div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if lvl.achieved_percentage >= 80 %}
+                                    <span class="tag tag-success">Mastered</span>
+                                {% elif lvl.achieved_percentage >= 60 %}
+                                    <span class="tag tag-cyan">Proficient</span>
+                                {% elif lvl.achieved_percentage >= 40 %}
+                                    <span class="tag tag-warning">Progressing</span>
+                                {% else %}
+                                    <span class="tag tag-danger">Needs Focus</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Question Formats Breakdown -->
+        {% if metrics %}
+        <div class="card mb-3">
+            <h2 class="mb-2" style="font-size:1.25rem;">Question Formats Performance</h2>
+            <div class="grid grid-2 gap-2">
+                <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border-soft);">
+                    <div class="flex items-center justify-between mb-1">
+                        <strong>Multiple Choice Questions (MCQ)</strong>
+                        <span class="text-secondary">{{ metrics.mcq_avg }}/100 ({{ metrics.mcq_count }} Qs)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:{{ metrics.mcq_avg }}%;"></div>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--border-soft);">
+                    <div class="flex items-center justify-between mb-1">
+                        <strong>Descriptive Typed Answers</strong>
+                        <span class="text-secondary">{{ metrics.desc_avg }}/100 ({{ metrics.desc_count }} Qs)</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width:{{ metrics.desc_avg }}%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Per-question analysis -->
+        <h2 class="mb-2" style="font-size:1.35rem;">Question-by-Question Analysis</h2>
+        {% for a in answers %}
+        <div class="card mb-2">
+            <div class="flex items-center justify-between" style="flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+                <div class="flex items-center gap-1" style="flex-wrap:wrap;">
+                    <span class="tag tag-purple">Level {{ a.section_number or 1 }}</span>
+                    <span class="tag">{{ a.question_category|replace('_', ' ')|title }}</span>
+                    {% if a.question_type == 'mcq' %}
+                        <span class="tag tag-green">MCQ</span>
+                    {% else %}
+                        <span class="tag tag-warning">Descriptive</span>
+                    {% endif %}
+                    <span class="text-muted">Question #{{ a.question_index }}</span>
+                </div>
+                <div>
+                    <strong style="color:var(--neon-cyan);font-size:1.05rem;">Score: {{ a.score }}/100</strong>
+                    {% if a.marks_allocated %}
+                        <span class="tag tag-cyan" style="margin-left:6px;">{{ ((a.score / 100.0) * a.marks_allocated)|round(1) }}/{{ a.marks_allocated }} pts</span>
+                    {% endif %}
+                </div>
+            </div>
+            <p style="margin-bottom:12px;font-weight:600;font-size:1.05rem;line-height:1.4;">{{ a.question_text }}</p>
+
+            <div class="mb-2">
+                <strong class="text-secondary" style="display:block;margin-bottom:4px;font-size:0.85rem;text-transform:uppercase;">Your Answer:</strong>
+                <p style="white-space:pre-wrap;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;font-size:0.95rem;color:var(--text-primary);border:1px solid var(--border-soft);">{{ a.user_answer or 'No answer provided.' }}</p>
+            </div>
+
+            <div style="background:rgba(0,240,255,0.04);border-left:3px solid var(--neon-cyan);padding:10px 14px;border-radius:0 8px 8px 0;font-size:0.92rem;color:var(--text-secondary);">
+                {{ a.feedback }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary btn-lg">Take Another Interview</a>
+            <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary btn-lg">View Dashboard</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

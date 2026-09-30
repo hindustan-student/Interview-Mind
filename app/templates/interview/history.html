@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Interview History | InterviewMind{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="flex items-center justify-between mb-3" style="flex-wrap:wrap;gap:12px;">
+            <h1>Your Interview History</h1>
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary">+ New Interview</a>
+        </div>
+
+        {% if sessions %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Role</th>
+                    <th>CGPA</th>
+                    <th>Pre-Assessment</th>
+                    <th>Difficulty</th>
+                    <th>Answered</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in sessions %}
+                <tr>
+                    <td>{{ s.started_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ s.role }}</td>
+                    <td>{{ s.cgpa if s.cgpa is not none else '—' }}</td>
+                    <td>
+                        {% if s.pre_assessment_category %}
+                            <span class="tag tag-cyan">{{ s.pre_assessment_category }} ({{ s.pre_assessment_score|round(0)|int }}/10)</span>
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </td>
+                    <td><span style="text-transform:uppercase;">{% if s.difficulty == 'hard' %}Tough / Hard{% else %}{{ s.difficulty|title }}{% endif %}</span></td>
+                    <td>{{ s.answered_count }}/{{ s.total_questions }}</td>
+                    <td>
+                        {% if s.overall_score %}
+                            <strong style="color:var(--neon-cyan);">{{ s.overall_score }}/100</strong>
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if s.status == 'completed' %}
+                            <span class="tag tag-success">Completed</span>
+                        {% elif s.status == 'in_progress' %}
+                            <span class="tag tag-warning">In Progress</span>
+                        {% else %}
+                            <span class="tag">{{ s.status|title }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('interview.results', session_id=s.id) }}" class="btn btn-ghost" style="padding:4px 10px;font-size:0.85rem;">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="card text-center">
+            <h3 class="mb-2">No interviews yet</h3>
+            <p class="text-secondary mb-3">Take your first mock interview to start tracking your progress.</p>
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary">Start Your First Interview</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

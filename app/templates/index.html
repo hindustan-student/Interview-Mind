@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %}InterviewMind — AI-Powered Interview Preparation System{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <span class="hero-eyebrow animate-fade-up">Academic Project • Flask + HTML5 Canvas</span>
+    <h1 class="animate-fade-up delay-1">
+        Land Your Dream Job with<br>
+        <span style="background:linear-gradient(135deg,var(--neon-cyan),var(--neon-magenta));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">AI-Powered Interview Prep</span>
+    </h1>
+    <p class="subtitle animate-fade-up delay-2">
+        InterviewMind simulates real interviews, scores your answers with a
+        STAR-method engine, analyzes your resume's ATS-friendliness, and tracks
+        your growth — all in a neon-animated, distraction-free workspace.
+    </p>
+    <div class="hero-cta animate-fade-up delay-3">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('interview.start') }}" class="btn btn-primary btn-lg">Start Mock Interview</a>
+            <a href="{{ url_for('resume.upload') }}" class="btn btn-secondary btn-lg">Analyze Resume</a>
+        {% else %}
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Get Started — It's Free</a>
+            <a href="{{ url_for('main.features') }}" class="btn btn-secondary btn-lg">Explore Features</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Stats strip -->
+<section class="section" style="padding-top:32px;padding-bottom:0;">
+    <div class="container">
+        <div class="stat-grid">
+            <div class="card stat-card animate-fade-up">
+                <div class="stat-value">25+</div>
+                <div class="stat-label">Curated Questions</div>
+            </div>
+            <div class="card stat-card animate-fade-up delay-1">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="card stat-card animate-fade-up delay-2">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Job Roles</div>
+            </div>
+            <div class="card stat-card animate-fade-up delay-3">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Open-Source</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features preview -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Everything You Need to Ace Interviews</h2>
+        <p class="section-subtitle">
+            A complete academic-grade toolkit that prepares you end-to-end — from
+            resume screening to final-round technical interviews.
+        </p>
+        <div class="grid grid-3">
+            <div class="card animate-fade-up">
+                <div class="card-icon">🧠</div>
+                <h3>AI Mock Interview</h3>
+                <p>Role-specific questions, difficulty levels, and instant STAR-method feedback on every answer you submit.</p>
+            </div>
+            <div class="card color-magenta animate-fade-up delay-1">
+                <div class="card-icon">📄</div>
+                <h3>Resume ATS Analyzer</h3>
+                <p>Upload PDF/DOCX/TXT. Get ATS score, keyword coverage, missing sections, and tailored improvement recommendations.</p>
+            </div>
+            <div class="card color-purple animate-fade-up delay-2">
+                <div class="card-icon">📚</div>
+                <h3>Curated Question Bank</h3>
+                <p>Behavioral, technical, system design, coding, HR, and situational — modeled on FAANG-tier interview prep.</p>
+            </div>
+            <div class="card color-green animate-fade-up delay-3">
+                <div class="card-icon">📈</div>
+                <h3>Performance Dashboard</h3>
+                <p>Score trends, category breakdowns, confidence tracking — visualize your interview readiness over time.</p>
+            </div>
+            <div class="card color-yellow animate-fade-up delay-4">
+                <div class="card-icon">⚡</div>
+                <h3>Real-Time Feedback</h3>
+                <p>Every answer is scored on length, clarity, keyword coverage, STAR completeness, and confidence proxy.</p>
+            </div>
+            <div class="card color-blue animate-fade-up delay-5">
+                <div class="card-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>Flask-Login sessions, PBKDF2 password hashing, CSRF protection, and per-user data isolation.</p>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ url_for('main.features') }}" class="btn btn-ghost">See all features →</a>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">A four-step interview preparation workflow, designed for serious candidates.</p>
+        <div class="grid grid-4">
+            <div class="card text-center animate-fade-up">
+                <div class="stat-value" style="font-size:2rem;">01</div>
+                <h3 style="margin-top:12px;">Sign Up</h3>
+                <p>Create your free account, pick your target role, and set your difficulty level.</p>
+            </div>
+            <div class="card text-center color-magenta animate-fade-up delay-1">
+                <div class="stat-value" style="font-size:2rem;">02</div>
+                <h3 style="margin-top:12px;">Upload Resume</h3>
+                <p>Run an instant ATS analysis and discover what keywords and sections you're missing.</p>
+            </div>
+            <div class="card text-center color-purple animate-fade-up delay-2">
+                <div class="stat-value" style="font-size:2rem;">03</div>
+                <h3 style="margin-top:12px;">Practice Interviews</h3>
+                <p>Answer role-specific questions, get scored, and read actionable strengths and improvements.</p>
+            </div>
+            <div class="card text-center color-green animate-fade-up delay-3">
+                <div class="stat-value" style="font-size:2rem;">04</div>
+                <h3 style="margin-top:12px;">Track & Improve</h3>
+                <p>Watch your dashboard score trend climb. Re-take interviews until you hit hire-grade.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech stack -->
+<section class="section">
+    <div class="container">
+        <div class="card" style="text-align:center;padding:48px 24px;">
+            <h2 class="section-title" style="margin-bottom:8px;">Built With a Modern Academic Stack</h2>
+            <p class="section-subtitle" style="margin-bottom:32px;">
+                A pedagogically clean Flask architecture — application factory pattern, blueprints,
+                SQLAlchemy ORM, service layer, and a custom canvas particle engine.
+            </p>
+            <div class="flex gap-2" style="justify-content:center;flex-wrap:wrap;">
+                <span class="tag">Python 3.10+</span>
+                <span class="tag">Flask 3.0</span>
+                <span class="tag">SQLAlchemy</span>
+                <span class="tag">Flask-Login</span>
+                <span class="tag">Flask-WTF</span>
+                <span class="tag">Jinja2</span>
+                <span class="tag">HTML5 Canvas</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">Vanilla JS</span>
+            </div>
+            <div class="mt-4">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Start Practicing Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
