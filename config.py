@@ -31,13 +31,24 @@ class Config:
     IS_VERCEL = bool(os.environ.get("VERCEL"))
 
     _env_db = os.environ.get("DATABASE_URL", "")
-    if _env_db and (_env_db.startswith("sqlite://") or _env_db.startswith("postgres")
-                     or _env_db.startswith("mysql")):
-        SQLALCHEMY_DATABASE_URI = _env_db
+    if _env_db:
+        # Render and Heroku use postgres:// which SQLAlchemy 2.0 requires as postgresql://
+        if _env_db.startswith("postgres://"):
+            _env_db = _env_db.replace("postgres://", "postgresql://", 1)
+        if _env_db.startswith("sqlite://") or _env_db.startswith("postgresql") or _env_db.startswith("mysql"):
+            SQLALCHEMY_DATABASE_URI = _env_db
+        elif IS_VERCEL:
+            SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/interviewmind.db"
+        else:
+            SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR / 'instance' / 'interviewmind.db'}"
     elif IS_VERCEL:
         SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/interviewmind.db"
     else:
         SQLALCHEMY_DATABASE_URI = f"sqlite:///{BASE_DIR / 'instance' / 'interviewmind.db'}"
+        try:
+            os.makedirs(BASE_DIR / "instance", exist_ok=True)
+        except OSError:
+            pass
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {"pool_pre_ping": True}
 

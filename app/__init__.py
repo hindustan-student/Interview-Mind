@@ -57,8 +57,8 @@ def create_app(config_name="development"):
     # Register template context processors
     _register_context_processors(app)
 
-    # Auto-create database on first run or on Vercel
-    if config_name in ("development", "testing") or os.environ.get("VERCEL"):
+    # Auto-create database on first run or on Vercel/Render
+    if config_name in ("development", "testing") or os.environ.get("VERCEL") or os.environ.get("RENDER"):
         with app.app_context():
             try:
                 db.create_all()
