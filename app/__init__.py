@@ -209,3 +209,9 @@ def _register_context_processors(app):
             "CURRENT_YEAR": __import__("datetime").datetime.now().year,
             "STATIC_EXPORT": bool(app.config.get("STATIC_EXPORT")),
         }
+
+
+# Default WSGI application instance for 'gunicorn app:app'
+import os
+app = create_app(os.environ.get("FLASK_ENV", "production"))
+
